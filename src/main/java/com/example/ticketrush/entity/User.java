@@ -22,4 +22,5 @@ public class User {
     @Setter
     @Column(nullable = false)
     private String fullName;
+
 }
