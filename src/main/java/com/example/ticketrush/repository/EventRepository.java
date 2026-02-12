@@ -2,10 +2,19 @@ package com.example.ticketrush.repository;
 
 import com.example.ticketrush.entity.Event;
 import lombok.NonNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 
+@Repository
 public interface EventRepository extends JpaRepository<@NonNull Event,@NonNull Long> {
-    Optional<Event> findByUserId(Long userId);
+
+    Page<@NonNull Event> findByDateAfter(LocalDateTime date, Pageable pageable);
+
+    Page<@NonNull Event> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }
