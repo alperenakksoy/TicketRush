@@ -4,9 +4,6 @@ import com.example.ticketrush.enums.SeatStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "seats")
 @Getter
@@ -38,6 +35,4 @@ public class Seat {
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private List<Seat> seatsBooked = new ArrayList<>();
 }
