@@ -17,6 +17,7 @@ import com.example.ticketrush.repository.SeatRepository;
 import com.example.ticketrush.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,8 @@ public class BookingService {
     private final SeatRepository seatRepository;
     private final UserRepository userRepository;
 
+    @Transactional
+    @CacheEvict(value = "event_seats", key = "#request.eventId")
     public BookingResponse createBooking(BookingRequest request) {
 
         User user = userRepository.findById(request.getUserId())

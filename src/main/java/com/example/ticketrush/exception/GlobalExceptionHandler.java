@@ -36,8 +36,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<@NonNull Map<String, Object>> handleOptimisticLockingException() {
         Map<String, Object> response = new HashMap<>();
         response.put(TIMESTAMP, LocalDateTime.now());
-        response.put(MESSAGE, "Üzgünüz! Seçtiğiniz koltuk işlem sırasında başkası tarafından alındı. Lütfen tekrar deneyin.");
-        response.put(STATUS, HttpStatus.CONFLICT.value()); // 409 Conflict
+        response.put(MESSAGE, "Sorry, this seat is already taken by another person");
+        response.put(STATUS, HttpStatus.CONFLICT.value());
 
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
