@@ -25,8 +25,6 @@ public class EventService {
     @Transactional(readOnly = true)
     public List<SeatDto> getSeatsByEventId(Long eventId) {
 
-        log.info("Fetching seats by event id {}", eventId);
-
         List<Seat> seats = seatRepository.findAllByEventId(eventId);
 
         if (seats.isEmpty()) {
