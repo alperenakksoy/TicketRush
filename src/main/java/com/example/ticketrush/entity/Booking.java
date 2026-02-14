@@ -3,8 +3,7 @@ package com.example.ticketrush.entity;
 
 import com.example.ticketrush.enums.BookingStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -16,6 +15,9 @@ import java.util.List;
 @Table(name="bookings")
 @Getter
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Booking {
 
     @Id
@@ -40,6 +42,7 @@ public class Booking {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Setter
     @OneToMany(mappedBy = "booking")
     private List<Seat> seats = new ArrayList<>();
 

@@ -1,6 +1,7 @@
 package com.example.ticketrush.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +30,11 @@ public class Event {
     @Setter
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Setter
+    @Min(value = 0)
+    @Column(nullable = false)
+    private double price;
 
     @Setter
     @Column(name = "event_date", nullable = false)
