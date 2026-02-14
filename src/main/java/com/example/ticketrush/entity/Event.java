@@ -41,6 +41,7 @@ public class Event {
     private LocalDateTime date;
 
     @CreatedDate
+    @Setter
     @Column(nullable = false,  updatable = false)
     private LocalDateTime createdAt;
 

@@ -1,6 +1,7 @@
 package com.example.ticketrush.exception;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     private static final String TIMESTAMP = "timestamp";
@@ -56,4 +58,16 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+        @ExceptionHandler(Exception.class)
+        public ResponseEntity<@NonNull Map<String, Object>> handleGeneralException(Exception ex) {
+
+            Map<String, Object> response = new HashMap<>();
+            response.put(TIMESTAMP, LocalDateTime.now());
+            response.put(MESSAGE, "Unexpected error: " + ex.getMessage());
+            response.put(STATUS, HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+            log.error("An unexpected error occurred", ex);
+
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 }
