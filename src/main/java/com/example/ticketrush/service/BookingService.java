@@ -31,6 +31,7 @@ public class BookingService {
     private final EventRepository eventRepository;
     private final SeatRepository seatRepository;
     private final UserRepository userRepository;
+    private final BookingMapper bookingMapper;
 
     @Transactional
     @CacheEvict(value = "event_seats", key = "#request.eventId")
@@ -77,7 +78,7 @@ public class BookingService {
 
         savedBooking.setSeats(seats);
 
-        return BookingMapper.toResponse(savedBooking);
+        return bookingMapper.toResponse(savedBooking);
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class BookingMapper {
 // toEntity method is in BookinService
-    public static BookingResponse toResponse(Booking booking) {
+    public BookingResponse toResponse(Booking booking) {
         if(booking == null) {
             return null;
         }
