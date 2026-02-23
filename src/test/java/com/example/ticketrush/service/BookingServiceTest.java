@@ -133,6 +133,36 @@ import static org.mockito.Mockito.*;
           assertEquals("User not found with id: " + request.getUserId(),exception.getMessage());
           verify(bookingRepository,never()).save(any());
        }
+
+       @Test
+       @DisplayName("Should throw BusinessException when event not exist")
+       void eventNotFound(){
+          // Arrange
+          when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
+          when(seatRepository.findAllById(request.getSeatIds())).thenReturn(List.of(seat1,seat2));
+          when(eventRepository.findById(EVENT_ID)).thenReturn(Optional.empty());
+          // act & assert
+          BusinessException exception = assertThrows(BusinessException.class,()-> bookingService.createBooking(request));
+
+          assertEquals("Event not found with id: " + request.getEventId(),exception.getMessage());
+          verify(bookingRepository,never()).save(any());
+       }
+
+       @Test
+       @DisplayName("Should throw BusinessException when seat is not exist")
+       void seatNotFound(){
+          when(userRepository.findById(USER_ID)).thenReturn(Optional.of(user));
+          when(seatRepository.findAllById(request.getSeatIds())).thenReturn(List.of());
+          when(eventRepository.findById(request.getEventId())).thenReturn(Optional.of(event));
+
+          // Act & Assert
+          BusinessException exception = assertThrows(BusinessException.class,
+                  () -> bookingService.createBooking(request));
+
+          assertEquals("Seats not found", exception.getMessage());
+          verify(bookingRepository, never()).save(any());
+       }
+
        @Test
        @DisplayName("Should throw BusinessException when seat is not available")
        void seatNotAvailable(){
