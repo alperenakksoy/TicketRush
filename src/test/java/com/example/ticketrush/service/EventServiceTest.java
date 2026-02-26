@@ -72,9 +72,7 @@ class EventServiceTest {
         void getSeats_NoSeatsFound_ThrowsException() {
             when(seatRepository.findAllByEventId(EVENT_ID)).thenReturn(List.of());
 
-            BusinessException exception = assertThrows(BusinessException.class, () -> {
-                eventService.getSeatsByEventId(EVENT_ID);
-            });
+            BusinessException exception = assertThrows(BusinessException.class, () -> eventService.getSeatsByEventId(EVENT_ID));
 
             assertEquals("No seats found for this event.", exception.getMessage());
             verify(seatMapper, never()).toDtoList(any());

@@ -9,14 +9,14 @@ import java.util.List;
 
 @Component
 public class BookingMapper {
-// toEntity method is in BookinService
+// toEntity method is in BookingService
     public BookingResponse toResponse(Booking booking) {
         if(booking == null) {
             return null;
         }
 
-        List<String> seatNumbers = booking.getSeats() != null ? booking.getSeats().stream().map(Seat::getSeatNumber).toList()
-                : Collections.emptyList();
+        List<String> seatNumbers = booking.getSeats() != null ?
+                booking.getSeats().stream().map(Seat::getSeatNumber).toList() : Collections.emptyList();
 
         return BookingResponse.builder()
                 .bookingStatus(booking.getStatus())
